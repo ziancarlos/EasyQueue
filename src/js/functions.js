@@ -549,7 +549,7 @@ function show(cardGroup = document.querySelector(".card-group")) {
       return `${minutes} menit`;
     };
 
-    const waitTime = (i + 1) * 4;
+    const waitTime = i * 4;
     const formattedTime = convertTime(waitTime);
 
     const card = `
@@ -562,7 +562,11 @@ function show(cardGroup = document.querySelector(".card-group")) {
     }">
         <h5 class="card-title">A${customer.id} ${customer.name}</h5>
         <p class="card-text">
-          Perkiraan waktu tunggu ${formattedTime}
+          ${
+            i > 0
+              ? `Perkiraan waktu tunggu ${formattedTime}`
+              : "Silahkan masuk giliran anda."
+          }
         </p>
         <div class="badge bg-secondary">${
           i + 1 === 1 ? "Giliran Anda" : `Antrian ${i + 1}`
