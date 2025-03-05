@@ -26,7 +26,7 @@ function print(id, name, priority = "G") {
         </ul>
         <div class="tm_invoice_seperator"></div>   
         ${
-          priority === "V" || priority === "P"
+          priority === "V"
             ? ` <h2>
               <b>${priority}</b>
             </h2>`
@@ -465,7 +465,7 @@ function print(id, name, priority = "G") {
 }
 
 function prorityValidation(priority) {
-  return priority === "G" || priority === "V" || priority === "P";
+  return priority === "G" || priority === "P";
 }
 
 function nameValidation(name) {
@@ -483,17 +483,24 @@ function add(name, priority = "G") {
   };
 
   if (priority === "P") {
-    let lastPriorityIndex = data.findLastIndex(
-      (item) => item.priority === "P" || item.priority === "V"
+    // Find the last index of any priority "P"
+    let lastPriorityIndex = data.findLastIndex((item) => item.priority === "P");
+
+    // Find the first person with lives < 4 (who is not priority "P")
+    let firstLowerLivesIndex = data.findIndex(
+      (item) => item.lives < 4 && item.priority !== "P"
     );
 
     if (lastPriorityIndex !== -1) {
+      // If there are existing "P" customers, insert after the last "P"
       data.splice(lastPriorityIndex + 1, 0, newQueue);
+    } else if (firstLowerLivesIndex !== -1) {
+      // If there's someone in front with lives < 4, insert after them
+      data.splice(firstLowerLivesIndex + 1, 0, newQueue);
     } else {
+      // Otherwise, insert at the front
       data.unshift(newQueue);
     }
-  } else if (priority === "V") {
-    data = [newQueue].concat(data);
   } else {
     data.push(newQueue);
   }
@@ -542,27 +549,27 @@ function show(cardGroup = document.querySelector(".card-group")) {
       return `${minutes} menit`;
     };
 
-    const waitTime = (i + 1) * 4;
+    const waitTime = i * 4;
     const formattedTime = convertTime(waitTime);
 
-    if (i === 0) {
-      console.log(customer.lives);
-    }
-
-    // console.log(customer.lives, i);
-    
 
     const card = `
   <div class="col-4 mb-3" >
     <div class="card h-100">
       <div class="card-body ${
-        i === 0 && (customer.lives === 3 || customer.lives === 4) ? "text-bg-success" : 
-        i === 0 && customer.lives === 2 ? "text-bg-warning" :
-        i === 0 && customer.lives === 1 ? "text-bg-danger" : ""
+
+        i === 0 && customer.lives === 3 ? "text-bg-success" : ""
+      } ${i === 0 && customer.lives === 2 ? "text-bg-warning" : ""}  ${
+      i === 0 && customer.lives === 1 ? "text-bg-danger" : ""
+
     }">
         <h5 class="card-title">A${customer.id} ${customer.name}</h5>
         <p class="card-text">
-          Perkiraan waktu tunggu ${formattedTime}
+          ${
+            i > 0
+              ? `Perkiraan waktu tunggu ${formattedTime}`
+              : "Silahkan masuk giliran anda."
+          }
         </p>
         <div class="badge bg-secondary">${
           i + 1 === 1 ? "Giliran Anda" : `Antrian ${i + 1}`
@@ -586,20 +593,31 @@ function show(cardGroup = document.querySelector(".card-group")) {
 
 function disabledButton(
   disabled = true,
-  warningCustomerBtn = document.querySelector(".warning-customer-btn")
+  warningCustomerBtn = document.querySelector(".warning-customer-btn"),
+  nextCustomerBtn = document.querySelector(".next-customer-btn")
 ) {
   if (disabled) {
     warningCustomerBtn.classList.add("disabled");
+    nextCustomerBtn.classList.add("disabled");
     return;
   }
 
   warningCustomerBtn.classList.remove("disabled");
+  nextCustomerBtn.classList.remove("disabled");
 }
 
 function render(
   customer,
   showCustomerTurn = document.querySelector(".show-customer-turn")
 ) {
+  if (!customer) {
+    return (showCustomerTurn.innerHTML = `  
+    <div class="alert alert-secondary show-customer-turn"
+      role="alert">
+       Tidak ada kustomer yang menunggu.
+    </div>`);
+  }
+
   let alertClass = "alert-secondary";
   switch (customer.lives) {
     case 4:

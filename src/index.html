@@ -36,6 +36,7 @@
                       aria-label="Masukkan Nama"
                       aria-describedby="button-addon2"
                       id="name-input"
+                      autocomplete="off"
                       required
                     />
                     <select
@@ -44,7 +45,6 @@
                     >
                       <option value="G">General</option>
                       <option value="P">Prioritas</option>
-                      <option value="V">VVIP</option>
                     </select>
                     <button
                       type="submit"
@@ -55,7 +55,7 @@
                     <div class="invalid-feedback">
                       Nama harus memiliki minimal 3 karakter dan dibawah 30
                       karakter dan Tipe Prioritas harus memilih antara
-                      General/Prioritas/VVIP.
+                      General/Prioritas
                     </div>
                     <div class="valid-feedback">
                       Nama dan Tipe Prioritas valid!
@@ -72,6 +72,15 @@
                     style="width: 100%"
                   >
                     Peringatan
+                  </button>
+                </div>
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-danger next-customer-btn"
+                    style="width: 100%"
+                  >
+                    Selanjutnya
                   </button>
                 </div>
               </div>
