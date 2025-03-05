@@ -552,13 +552,16 @@ function show(cardGroup = document.querySelector(".card-group")) {
     const waitTime = i * 4;
     const formattedTime = convertTime(waitTime);
 
+
     const card = `
   <div class="col-4 mb-3" >
     <div class="card h-100">
       <div class="card-body ${
+
         i === 0 && customer.lives === 3 ? "text-bg-success" : ""
       } ${i === 0 && customer.lives === 2 ? "text-bg-warning" : ""}  ${
       i === 0 && customer.lives === 1 ? "text-bg-danger" : ""
+
     }">
         <h5 class="card-title">A${customer.id} ${customer.name}</h5>
         <p class="card-text">
@@ -617,6 +620,7 @@ function render(
 
   let alertClass = "alert-secondary";
   switch (customer.lives) {
+    case 4:
     case 3:
       alertClass = "alert-success";
       break;
