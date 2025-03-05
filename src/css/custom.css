@@ -1,0 +1,65 @@
+/* Apply a grid layout for the queue cards */
+.queue-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    justify-content: center;
+    align-items: start;
+    padding: 20px;
+}
+
+/* Ensure a 3-column layout on wider screens */
+@media (min-width: 1024px) {
+    .queue-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Switch to 2-column layout for mobile */
+@media (max-width: 768px) {
+    .queue-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Maintain card styling */
+.queue-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.queue-card.giliran-anda {
+    background-color: #2d8a44;
+    color: white;
+    font-weight: bold;
+}
+
+.queue-card:hover {
+    transform: scale(1.02);
+}
+
+/* Align input, dropdown, and button */
+.form-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Footer styling */
+.footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    font-family: "Poppins", "Inter", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
