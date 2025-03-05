@@ -68,42 +68,71 @@ document.addEventListener("DOMContentLoaded", async function () {
     let data = JSON.parse(localStorage.getItem("queue-data")) || [];
 
     let currentCustomer = data[0];
+    if (currentCustomer) {
+      currentCustomer.lives--;
 
-    if (
-      (data.length === 1 && currentCustomer.lives === 0) ||
-      data.length === 0
-    ) {
-      data.shift();
+      if (currentCustomer.lives === 0) {
+        data.shift();
 
-      showCustomerTurn.innerHTML = `  
-    <div class="alert alert alert-secondary show-customer-turn"
-      role="alert">
-      Tidak ada kustomer yang sedang menunggu
-    </div>`;
+        if (data.length > 0) {
+          currentCustomer = data[0];
+          currentCustomer.lives--;
+        } else {
+          localStorage.setItem("queue-data", JSON.stringify(data));
 
-      localStorage.setItem("queue-data", JSON.stringify(data));
+          render(null, showCustomerTurn);
 
-      show();
+          show(cardGroup);
 
-      return;
+          playSound(notificationSound);
+
+          return;
+        }
+      }
     }
-
-    if (currentCustomer.lives === 0) {
-      data.shift();
-
-      currentCustomer = data[0];
-    }
-
-    
-
-    currentCustomer.lives -= 1;
-    
-    render(currentCustomer, showCustomerTurn);
-    
-    show();
-
-    playSound(notificationSound);
 
     localStorage.setItem("queue-data", JSON.stringify(data));
+
+    show(cardGroup);
+
+    render(currentCustomer, showCustomerTurn);
+
+    playSound(notificationSound);
+  });
+
+  nextCustomerBtn.addEventListener("click", () => {
+    let data = JSON.parse(localStorage.getItem("queue-data")) || [];
+
+    let currentCustomer = data[0];
+    if (currentCustomer) {
+      if (currentCustomer.lives === 4) {
+        currentCustomer.lives--;
+      } else {
+        data.shift();
+
+        if (data.length > 0) {
+          currentCustomer = data[0];
+          currentCustomer.lives--;
+        } else {
+          localStorage.setItem("queue-data", JSON.stringify(data));
+
+          render(null, showCustomerTurn);
+
+          show(cardGroup);
+
+          playSound(notificationSound);
+
+          return;
+        }
+      }
+    }
+
+    localStorage.setItem("queue-data", JSON.stringify(data));
+
+    show(cardGroup);
+
+    render(currentCustomer, showCustomerTurn);
+
+    playSound(notificationSound);
   });
 });
