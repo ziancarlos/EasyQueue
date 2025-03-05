@@ -94,11 +94,13 @@ document.addEventListener("DOMContentLoaded", async function () {
       currentCustomer = data[0];
     }
 
-    render(currentCustomer, showCustomerTurn);
-
-    show();
+    
 
     currentCustomer.lives -= 1;
+    
+    render(currentCustomer, showCustomerTurn);
+    
+    show();
 
     playSound(notificationSound);
 

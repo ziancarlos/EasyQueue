@@ -478,7 +478,7 @@ function add(name, priority = "G") {
   const newQueue = {
     id: data.length + 1 || 1, // Generate unique ID
     name,
-    lives: 3,
+    lives: 4,
     priority,
   };
 
@@ -548,13 +548,17 @@ function show(cardGroup = document.querySelector(".card-group")) {
     if (i === 0) {
       console.log(customer.lives);
     }
+
+    // console.log(customer.lives, i);
+    
+
     const card = `
   <div class="col-4 mb-3" >
     <div class="card h-100">
       <div class="card-body ${
-        i === 0 && customer.lives === 3 && "text-bg-success"
-      } ${i === 0 && customer.lives === 2 && "text-bg-warning"}  ${
-      i === 0 && customer.lives === 1 && "text-bg-danger"
+        i === 0 && (customer.lives === 3 || customer.lives === 4) ? "text-bg-success" : 
+        i === 0 && customer.lives === 2 ? "text-bg-warning" :
+        i === 0 && customer.lives === 1 ? "text-bg-danger" : ""
     }">
         <h5 class="card-title">A${customer.id} ${customer.name}</h5>
         <p class="card-text">
@@ -598,6 +602,7 @@ function render(
 ) {
   let alertClass = "alert-secondary";
   switch (customer.lives) {
+    case 4:
     case 3:
       alertClass = "alert-success";
       break;
