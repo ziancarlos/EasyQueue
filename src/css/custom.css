@@ -1,65 +1,84 @@
-/* Apply a grid layout for the queue cards */
-.queue-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 16px;
-    justify-content: center;
-    align-items: start;
-    padding: 20px;
+/* Updated EasyQueue CSS Improvements */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap");
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
 }
 
-/* Ensure a 3-column layout on wider screens */
-@media (min-width: 1024px) {
-    .queue-container {
-        grid-template-columns: repeat(3, 1fr);
-    }
+body {
+  color: #444;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background-color: #f8f9fa;
 }
 
-/* Switch to 2-column layout for mobile */
-@media (max-width: 768px) {
-    .queue-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Maintain card styling */
-.queue-card {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    text-align: center;
-    transition: all 0.3s ease;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+.header-logo img {
+  max-width: 220px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
-.queue-card.giliran-anda {
-    background-color: #2d8a44;
-    color: white;
-    font-weight: bold;
+h1, h2, h3 {
+  color: #222;
+  font-weight: 600;
 }
 
-.queue-card:hover {
-    transform: scale(1.02);
+.button-primary {
+  display: inline-block;
+  padding: 10px 18px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
 }
 
-/* Align input, dropdown, and button */
-.form-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.button-primary:hover {
+  background-color: #0056b3;
 }
 
-/* Footer styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th, .table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.table th {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
 .footer {
-    background-color: black;
-    color: white;
-    text-align: center;
-    padding: 12px;
-    font-family: "Poppins", "Inter", Arial, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
+  text-align: center;
+  padding: 5px;
+  margin-top: 20px;
+  background-color: #007bff;
+  color: #fff;
 }
-
