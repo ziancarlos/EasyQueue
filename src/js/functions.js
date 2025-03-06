@@ -534,7 +534,7 @@ function show(cardGroup = document.querySelector(".card-group")) {
   const maxShow = 6;
   const remaining = queueData.length - maxShow;
 
-  for (let i = 0; i <= maxShow; i++) {
+  for (let i = 0; i < maxShow; i++) {
     if (i >= queueData.length) break;
     const customer = queueData[i];
 
