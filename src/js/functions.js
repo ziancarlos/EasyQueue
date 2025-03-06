@@ -563,7 +563,8 @@ function show(cardGroup = document.querySelector(".card-group")) {
       i === 0 && customer.lives === 1 ? "text-bg-danger" : ""
 
     }">
-        <h5 class="card-title">A${customer.id} ${customer.name}</h5>
+        <h5 class="card-title">A${customer.id} <br>
+        ${customer.name}</h5>
         <p class="card-text">
           ${
             i > 0
